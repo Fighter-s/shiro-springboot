@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sgp.shiro.mapper.PermissionMapper">
+
+    <select id="findPermsByRoleIdIn" resultType="com.sgp.shiro.entity.Permission">
+        select DISTINCT p.* from t_perms p , t_role_perms rp where p.id = rp.pid and rp.rid in
+        <foreach collection="roleIdSet" item="rid" open="(" separator="," close=")">
+            #{rid}
+        </foreach>
+    </select>
+</mapper>
