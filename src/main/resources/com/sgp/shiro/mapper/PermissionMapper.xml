@@ -5,7 +5,7 @@
 <mapper namespace="com.sgp.shiro.mapper.PermissionMapper">
 
     <select id="findPermsByRoleIdIn" resultType="com.sgp.shiro.entity.Permission">
-        select DISTINCT p.* from t_perms p , t_role_perms rp where p.id = rp.pid and rp.rid in
+        select DISTINCT p.* from t_perms p , t_role_perms rp where p.id = rp.permsid and rp.roleid in
         <foreach collection="roleIdSet" item="rid" open="(" separator="," close=")">
             #{rid}
         </foreach>
