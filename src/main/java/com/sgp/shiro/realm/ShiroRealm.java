@@ -7,6 +7,7 @@ import com.sgp.shiro.entity.User;
 import com.sgp.shiro.service.IPermissionService;
 import com.sgp.shiro.service.IRoleService;
 import com.sgp.shiro.service.IUserService;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -16,6 +17,7 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -65,6 +67,9 @@ public class ShiroRealm extends AuthorizingRealm {
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
+        Subject subject = SecurityUtils.getSubject();
+        if(subject == null) return null;
+        if(!subject.isAuthenticated()) return null;
         // 获取用户对象信息
         User user = (User)principalCollection.getPrimaryPrincipal();
         // 获取用户存在的角色信息

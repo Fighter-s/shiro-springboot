@@ -38,6 +38,7 @@ public class shiroConfig {
         filterChainDefinitionMap.put("/login.html","anon");
         filterChainDefinitionMap.put("/user/logout","logout");
         filterChainDefinitionMap.put("/user/**","anon");
+        filterChainDefinitionMap.put("/item/update","user");
         filterChainDefinitionMap.put("/item/**","rolesOr[admin,user]");
         filterChainDefinitionMap.put("/item/delte","perms[item:add]");
         filterChainDefinitionMap.put("/**","authc");
