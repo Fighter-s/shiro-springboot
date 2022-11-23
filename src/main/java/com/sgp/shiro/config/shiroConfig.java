@@ -4,6 +4,7 @@ import com.sgp.shiro.filter.RolesOrAuthorizationFilter;
 import com.sgp.shiro.realm.ShiroRealm;
 import com.sgp.shiro.sessionDao.DefaultRedisWebSessionManager;
 import com.sgp.shiro.sessionDao.RedisSessionDao;
+import com.sgp.shiro.shiroCache.RedisCacheManager;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -31,9 +32,10 @@ public class shiroConfig {
     }
 
     @Bean
-    public DefaultWebSecurityManager securityManager(ShiroRealm shiroRealm,SessionManager sessionManager){
+    public DefaultWebSecurityManager securityManager(ShiroRealm shiroRealm,SessionManager sessionManager, RedisCacheManager redisCacheManager){
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setSessionManager(sessionManager);
+        securityManager.setCacheManager(redisCacheManager);
         securityManager.setRealm(shiroRealm);
 
         return securityManager;
